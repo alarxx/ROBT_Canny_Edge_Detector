@@ -7,8 +7,8 @@
 #include "utils.hpp"
 #include "convolution.hpp"
 #include "ops.hpp"
-#include "image_processing.hpp"
 #include "opencv_utils.hpp"
+#include "image_processing.hpp"
 
 
 using tensor::Tensor;
@@ -31,23 +31,21 @@ int main(){
 
     // Convolution
 
-    // Tensor<float> sobel_x = {
-    //     {-1, 0, 1},
-    //     {-2, 0, 2},
-    //     {-1, 0, 1}
-    // };
-
-    Tensor filtered = tensor::gaussian_blur(t, 2);
-
     // Canny
+
     // 1. Gaussian Filter
+    Tensor blurred = tensor::gaussian_blur(t, 2);
+
     // 2. Image Derivarive
+    Tensor sobel = tensor::sobel_operator(blurred);
+
     // 3. Non-Maximum Suppression
     // 4. Double Thresholding
     // 5. Hysterisis
 
     tensor::imshow(t);
-    tensor::imshow(filtered);
+    tensor::imshow(blurred);
+    tensor::imshow(sobel);
 
     return 0;
 }
