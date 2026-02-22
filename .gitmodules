@@ -1,0 +1,3 @@
+[submodule "Tensor-library"]
+	path = Tensor-library
+	url = https://github.com/alarxx/Tensor-library.git
