@@ -72,3 +72,9 @@ make run
 # cmake --build ./build
 # ./build/Canny
 ```
+
+## References
+
+- Wikipedia: https://en.wikipedia.org/wiki/Canny_edge_detector
+- IEEE: https://ieeexplore.ieee.org/document/4767851
+
