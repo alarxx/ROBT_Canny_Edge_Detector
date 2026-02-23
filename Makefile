@@ -14,9 +14,12 @@ help:
 	@echo "... Tensor-library 	- Build and Install Tensor-library"
 
 run:
-	cmake -S . -B build
-	cmake --build ./build
+# 	cmake -S . -B build
+# 	cmake --build ./build
+	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+	cmake --build build -j
 	./build/Canny
+
 
 clean:
 	rm -rf build
