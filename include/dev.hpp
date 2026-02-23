@@ -6,6 +6,17 @@
 #include <opencv2/opencv.hpp>
 #include "opencv_utils.hpp"
 
+namespace dev {
+
+    void test(){
+        tensor::test_conv();
+        tensor::test_mul();
+        tensor::test_mul_scalars();
+        tensor::test_scalar_mul();
+        custom_canny();
+        opencv_canny();
+    }
+
 void custom_canny(){
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -71,3 +82,5 @@ void draw_edge_components(const tensor::Tensor<T>& edges){
     cv::imshow("Edge Components", canvas);
     cv::waitKey(0);
 }
+
+};

@@ -16,18 +16,8 @@ using tensor::Tensor;
 using tensor::mat2tensor, tensor::tensor2mat;
 
 
-void test(){
-    tensor::test_conv();
-    tensor::test_mul();
-    tensor::test_mul_scalars();
-    tensor::test_scalar_mul();
-    custom_canny();
-    opencv_canny();
-}
-
-
 int main(){
-    test();
+    dev::test();
 
     // Tensor<float> t = tensor::imread_gray("./images/lenna.png");
     // Tensor<float> t = tensor::imread_gray("./images/karis.jpeg");
@@ -51,7 +41,7 @@ int main(){
     Tensor nms = tensor::non_max_suppression(sobel);
 
     // 4. Double Thresholding
-    Tensor strongweak = tensor::double_threshold(nms, 20.0f, 80.0f);
+    Tensor strongweak = tensor::double_threshold(nms, 20.0f, 80.0f); // only for visualization here
 
     // 5. Hysterisis
     Tensor chained = tensor::hysterisis(nms, 20.0f, 80.0f);
@@ -74,7 +64,7 @@ int main(){
     tensor::imshow(chained, "Hysterisis");
     // tensor::imshow(tensor::canny(t, 20.0f, 80.0f));
 
-    draw_edge_components(chained);
+    dev::draw_edge_components(chained);
 
     return 0;
 }
