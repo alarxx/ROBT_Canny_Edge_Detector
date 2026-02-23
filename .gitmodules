@@ -1,0 +1,6 @@
+[submodule "opencv"]
+	path = opencv
+	url = git@github.com:opencv/opencv.git
+[submodule "Tensor-library"]
+	path = Tensor-library
+	url = git@github.com:alarxx/Tensor-library.git
