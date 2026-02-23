@@ -223,7 +223,7 @@ namespace tensor {
         Tensor nms = tensor::non_max_suppression(sobel);
 
         // 4-5. Double Thresholding and Hysterisis
-        Tensor chained = tensor::hysterisis(nms, 20.0f, 80.0f);
+        Tensor chained = tensor::hysterisis(nms, low, high);
 
         return chained;
     }

@@ -20,7 +20,7 @@ void custom_canny(){
 
     // code block
     Tensor<float> t = tensor::imread_gray("./images/lenna.png");
-    Tensor edges = tensor::canny(t, 20.0f, 80.0f);
+    Tensor edges = tensor::canny(t, 30.0f, 80.0f);
     // tensor::imshow(edges);
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -35,10 +35,10 @@ void opencv_canny(){
     cv::Mat img = cv::imread("./images/lenna.png", cv::IMREAD_GRAYSCALE);
     if (img.empty()) return;
     cv::Mat edges;
-    cv::Canny(img, edges, 90, 160);
+    cv::Canny(img, edges, 100, 200);
     // cv::imshow("Original", img);
     // cv::imshow("Canny OpenCV", edges);
-    cv::waitKey(0);
+    // cv::waitKey(0);
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
@@ -59,7 +59,9 @@ void test(){
 int main(){
     test();
 
-    Tensor<float> t = tensor::imread_gray("./images/lenna.png");
+    // Tensor<float> t = tensor::imread_gray("./images/lenna.png");
+    Tensor<float> t = tensor::imread_gray("./images/karis.jpeg");
+
     std::cout << "t: rank(" << t.getRank() << "), size(" << t.getLength() << ")" << std::endl;
     std::cout << "t: dims(" << array2string(t.getRank(), t.getDims()) << ")" << std::endl;
     std::cout << "t: type(" << typeid(typename decltype(t)::type).name() << ")" << std::endl;
@@ -83,22 +85,22 @@ int main(){
     // 5. Hysterisis
     Tensor chained = tensor::hysterisis(nms, 20.0f, 80.0f);
 
-    // // Auto Threshold Values
-    // float median = find_median(sobel);
-    // float mean = find_mean(sobel);
-    // std::cout << "median: " << median << std::endl;
-    // std::cout << "mean: " << mean << std::endl;
+    // Auto Threshold Values
+    float median = find_median(sobel);
+    float mean = find_mean(sobel);
+    std::cout << "median: " << median << std::endl;
+    std::cout << "mean: " << mean << std::endl;
     // float low = std::max(0.0f, mean);
     // float high = std::min(255.0f, std::min(80.0f, 2*mean));
     // Tensor strongweak = tensor::double_threshold(nms, low, high);
     // Tensor chained = tensor::hysterisis(nms, low, high);
 
     tensor::imshow(t);
-    tensor::imshow(blurred);
-    tensor::imshow(sobel);
-    tensor::imshow(nms);
-    tensor::imshow(strongweak);
-    tensor::imshow(chained);
+    tensor::imshow(blurred, "Gaussian Blur 5x5");
+    tensor::imshow(sobel, "Sobel Operator");
+    tensor::imshow(nms, "Non-Maximum Suppression");
+    tensor::imshow(strongweak, "Double Threshold");
+    tensor::imshow(chained, "Hysterisis");
     // tensor::imshow(tensor::canny(t, 20.0f, 80.0f));
 
     return 0;

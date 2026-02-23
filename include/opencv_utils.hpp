@@ -82,7 +82,7 @@ namespace tensor {
     // Visualize
     template<Arithmetic T>
     void imshow(Tensor<T> t, std::string title = "Display Image"){
-        cv::namedWindow(title, cv::WINDOW_AUTOSIZE);
+        // cv::namedWindow(title, cv::WINDOW_AUTOSIZE);
         // Convert Tensor to OpenCV Mat
         cv::imshow(title, tensor2mat(t));
         cv::waitKey(0);
