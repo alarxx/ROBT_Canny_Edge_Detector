@@ -46,12 +46,14 @@ int main(){
     Tensor strongweak = tensor::double_threshold(nms, 20.0f, 80.0f);
 
     // 5. Hysterisis
+    Tensor chained = tensor::hysterisis(nms, 20.0f, 80.0f);
 
     tensor::imshow(t);
     tensor::imshow(blurred);
     tensor::imshow(sobel);
     tensor::imshow(nms);
     tensor::imshow(strongweak);
+    tensor::imshow(chained);
 
     return 0;
 }

@@ -2,6 +2,7 @@
 #ifndef _TENSORIMAGEPROCESSING_
 #define _TENSORIMAGEPROCESSING_
 
+#include <queue>
 #include <cmath>
 #include <climits>
 
@@ -129,6 +130,79 @@ namespace tensor {
         return out;
     }
 
+
+    template<Arithmetic T>
+    Tensor<T> hysterisis(
+        const Tensor<T>& image,
+        const T low, const T high,
+        const T WEAK = (T) 50, const T STRONG = (T) 255
+    ){
+        struct Pixel {
+            int x;
+            int y;
+            Pixel(int _x, int _y): x(_x), y(_y){}
+        };
+
+        int H = image.getDims()[0];
+        int W = image.getDims()[1];
+
+        // Double Threshold
+        Tensor<T> strongweak(H, W);
+        fill(0, strongweak);
+
+        std::queue<Pixel> q; // strong pixels
+
+        for(int r = 0; r < H; ++r){
+            for(int c = 0; c < W; ++c){
+                T v = image.get(r, c);
+
+                if(v >= high){
+                    strongweak.get(r, c) = STRONG;
+                    q.emplace(r, c);
+                }
+                else if(v >= low){
+                    strongweak.get(r, c) = WEAK;
+                }
+                else {
+                    strongweak.get(r, c) = (T) 0;
+                }
+            }
+        }
+
+        // Hysterisis gets: strongweak, q
+        Tensor<T> out(H, W);
+        fill(0, out);
+        // BFS
+        while(!q.empty()){
+            Pixel p = q.front();
+            q.pop();
+
+            // recursive behavior
+            out.get(p.x, p.y) = STRONG;
+
+            // 3x3 - 8-neighbor relationship
+            for(int dx = -1; dx <= 1; ++dx){
+                for(int dy = -1; dy <= 1; ++dy){
+                    if(dx == 0 && dy == 0) continue;
+
+                    int nx = p.x + dx;
+                    int ny = p.y + dy;
+
+                    if(nx < 0 || nx >= H || ny < 0 || ny >= W) continue;
+
+                    if(strongweak.get(nx, ny) == WEAK){
+                        strongweak.get(nx, ny) = STRONG;
+                        // recursive behavior
+                        q.emplace(nx, ny);
+                    }
+                }
+            }
+        }
+
+        return out;
+    }
+
 };
+
 
 #endif
