@@ -8,16 +8,7 @@
 
 namespace dev {
 
-    void test(){
-        tensor::test_conv();
-        tensor::test_mul();
-        tensor::test_mul_scalars();
-        tensor::test_scalar_mul();
-        custom_canny();
-        opencv_canny();
-    }
-
-void custom_canny(){
+void test_custom_canny(){
     auto start = std::chrono::high_resolution_clock::now();
 
     // code block
@@ -30,7 +21,7 @@ void custom_canny(){
     std::cout << "custom_canny: " << duration_ns.count() << "ns" << std::endl;
 }
 
-void opencv_canny(){
+void test_opencv_canny(){
     auto start = std::chrono::high_resolution_clock::now();
 
     // OpenCV Canny
@@ -81,6 +72,16 @@ void draw_edge_components(const tensor::Tensor<T>& edges){
 
     cv::imshow("Edge Components", canvas);
     cv::waitKey(0);
+}
+
+
+void test(){
+    tensor::test_conv();
+    tensor::test_mul();
+    tensor::test_mul_scalars();
+    tensor::test_scalar_mul();
+    test_custom_canny();
+    test_opencv_canny();
 }
 
 };

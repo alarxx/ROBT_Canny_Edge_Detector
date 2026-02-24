@@ -15,7 +15,6 @@
 using tensor::Tensor;
 using tensor::mat2tensor, tensor::tensor2mat;
 
-
 int main(){
     dev::test();
 

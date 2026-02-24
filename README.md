@@ -17,8 +17,14 @@ Without imread(): <br>
 ## Git Submodules
 
 ```sh
-git submodule add git@github.com:alarxx/Tensor-library.git
-git submodule add git@github.com:opencv/opencv.git
+git submodule add -b c++mappings git@github.com:alarxx/Tensor-library.git
+git submodule add -b 4.x git@github.com:opencv/opencv.git
+```
+
+Set branches:
+```sh
+git submodule set-branch -b c++mappings Tensor-library
+git submodule set-branch -b 4.x opencv
 ```
 
 Initialize and update submodules to recorded commits:
@@ -26,9 +32,9 @@ Initialize and update submodules to recorded commits:
 git submodule update --init --recursive
 ```
 
-Merge updates:
+Merge updates, fetching new commits:
 ```sh
-git submodule update --remote
+git submodule update --remote [--recursive]
 ```
 
 ---
@@ -48,36 +54,29 @@ apt install -y qtcreator qtbase5-dev qt5-qmake cmake
 
 ## Build and Install OpenCV
 
-[Build and Install OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html):
 ```sh
-cd ./opencv
-# git checkout 4.x
+make install-opencv
 ```
 
-Build OpenCV with Ninja:
-```sh
-cmake -S . -B build -G Ninja -DWITH_QT=ON -DWITH_GTK=OFF
-cd ./build
-ninja
-```
-
-Install OpenCV:
-```sh
-# cd ./build
-su -c "ninja install"
-```
-
-OpenCV example: [OpenCV with CMake](https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html)
+[Build and Install OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html) <br>
+OpenCV example: [OpenCV with CMake](https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html) <br>
 
 ----
 
 ## Build and Install Tensor-library
+
 [Tensor-library](https://github.com/alarxx/Tensor-library)
 
+Execute either:
 ```sh
-make Tensor-library
-# cd Tensor-library && make cmake-install
+cd Tensor-library && make cmake-install
 ```
+or
+```sh
+make install-tensor-library
+```
+
+---
 
 ## Build and Run
 
@@ -88,9 +87,22 @@ make run
 # ./build/Canny
 ```
 
+---
+
+## System
+
+- OS: Debian 12 (Bookworm)
+- Compiler: GCC 12.2.0
+- C++ standard: C++20
+- CMake: 3.25.1
+- Ninja: 1.11.1
+
+---
+
 ## References
 
 - Wikipedia: https://en.wikipedia.org/wiki/Canny_edge_detector
 - IEEE: https://ieeexplore.ieee.org/document/4767851
 - Computerphile (Youtube) - Canny Edge Detector. https://www.youtube.com/watch?v=sRFM5IEqR2w
+- Step by step in Python. https://medium.com/data-science/canny-edge-detection-step-by-step-in-python-computer-vision-b49c3a2d8123
 
