@@ -14,14 +14,35 @@ Without imread(): <br>
 
 ![Canny(Lenna)](https://github.com/alarxx/Canny_Edge_Detector/blob/master/images/steps/hysterisis.png)
 
+## System
 
-## Git Submodules
+- OS: Debian 12 (Bookworm)
+- Compiler: GCC 12.2.0
+- C++ standard: C++20
+- CMake: 3.25.1
+- Ninja: 1.11.1
+
+Super easy to build:
+```sh
+make submodules
+make install-tensor-library
+make install-opencv
+```
+
+Run:
+```sh
+make run
+```
+
+## Dependencies
+
+### Git Submodules
 
 ```sh
 make submodules
 ```
 
-### Detailed process on submodules
+#### Detailed process on submodules
 
 ```sh
 git submodule add -b c++mappings git@github.com:alarxx/Tensor-library.git
@@ -44,7 +65,7 @@ Merge updates, fetching new commits:
 git submodule update --remote [--recursive]
 ```
 
-## Build and Install OpenCV
+### Build and Install OpenCV
 
 ```sh
 make install-opencv
@@ -88,16 +109,6 @@ make run
 # cmake --build ./build
 # ./build/Canny
 ```
-
----
-
-## System
-
-- OS: Debian 12 (Bookworm)
-- Compiler: GCC 12.2.0
-- C++ standard: C++20
-- CMake: 3.25.1
-- Ninja: 1.11.1
 
 ---
 
